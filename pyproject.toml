@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "finalproject-drobkov-dpo"
+version = "0.1.0"
+description = "a platform for tracking and simulating currency trading"
+authors = ["Bogdan Drobkov <0brotishka0@gmail.com>"]
+readme = "README.md"
+packages = [
+    { include = "valutatrade_hub"},
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+prettytable = "^3.9.0"
+prompt = "^0.4.1"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.14.5"
+
+[tool.poetry.scripts]
+project = "main:main"
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+exclude = ["venv", ".venv", "dist", "__pycache__"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = []
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

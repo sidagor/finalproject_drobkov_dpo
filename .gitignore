@@ -1,0 +1,17 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ruff cache
+.ruff_cache/
+ruff_cache/
+
+# Distributions and builds
+dist/
+build/
+*.egg-info/
+*.egg
+
+# Install packages
+*.whl
