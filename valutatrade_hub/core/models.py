@@ -1,15 +1,26 @@
 import hashlib
+import secrets
+import string
 from datetime import datetime
 
 
 class User:
-    def __init__(self, user_id: int, username: str, hashed_password: str, salt: str, registration_date: datetime):
+    def __init__(self, user_id: int, username: str, hashed_password: str,
+                 salt: str, registration_date: datetime):
         self._user_id = user_id
-        self.username = username           
+        self.username = username                  
         self._hashed_password = hashed_password
-        self.salt = salt                   
-        self.registration_date = registration_date   
+        self._salt = salt                         
+        self._registration_date = registration_date
 
+                           
+    @staticmethod
+    def generate_salt(length: int = 8) -> str:
+        """Генерирует случайную соль."""
+        alphabet = string.ascii_letters + string.digits + "!@#$%^&*?"
+        return ''.join(secrets.choice(alphabet) for _ in range(length))
+
+  
     @property
     def user_id(self):
         return self._user_id
@@ -32,22 +43,11 @@ class User:
     def salt(self):
         return self._salt
 
-    @salt.setter
-    def salt(self, value: str):
-        if not value:
-            raise ValueError("Соль не должна быть пустой")
-        self._salt = value
-
     @property
     def registration_date(self):
         return self._registration_date
 
-    @registration_date.setter
-    def registration_date(self, value: datetime):
-        if not isinstance(value, datetime):
-            raise TypeError("registration_date должен быть datetime")
-        self._registration_date = value
-     
+   
     def get_user_info(self) -> dict:
         """Возвращает информацию о пользователе без пароля."""
         return {
@@ -57,19 +57,25 @@ class User:
         }
 
     def change_password(self, new_password: str):
-        """Меняет пароль, хешируя new_password + salt."""
+        """
+        Меняет пароль пользователя:
+        - создаёт новую соль
+        - пересчитывает хэш
+        """
         if len(new_password) < 4:
             raise ValueError("Пароль должен быть не короче 4 символов")
 
-        combined = (new_password + self._salt).encode()
-        hashed = hashlib.sha256(combined).hexdigest()
-        self._hashed_password = hashed
+        new_salt = self.generate_salt()
+        new_hash = hashlib.sha256((new_password + new_salt).encode()).hexdigest()
+
+        self._salt = new_salt
+        self._hashed_password = new_hash
 
     def verify_password(self, password: str) -> bool:
         """Проверяет правильность введённого пароля."""
-        combined = (password + self._salt).encode()
-        hashed = hashlib.sha256(combined).hexdigest()
+        hashed = hashlib.sha256((password + self._salt).encode()).hexdigest()
         return hashed == self._hashed_password
+
 
 class Wallet:
     def __init__(self, currency_code: str, balance: float = 0.0):

@@ -15,3 +15,6 @@ build/
 
 # Install packages
 *.whl
+
+# Virtual environment
+venv/
