@@ -12,6 +12,7 @@ packages = [
 python = "^3.8"
 prettytable = "^3.9.0"
 prompt = "^0.4.1"
+requests = "<2.32"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.14.5"

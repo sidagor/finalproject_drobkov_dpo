@@ -15,6 +15,7 @@ class DatabaseManager:
     _lock = Lock()
 
     def __new__(cls):
+        """Реализация паттерна Singleton с потокобезопасностью."""
         with cls._lock:
             if cls._instance is None:
                 cls._instance = super().__new__(cls)
@@ -22,6 +23,7 @@ class DatabaseManager:
             return cls._instance
 
     def _init(self):
+        """Инициализация экземпляра Singleton."""
         self.settings = SettingsLoader()
 
         base = Path(self.settings.get("data_path"))
@@ -33,31 +35,38 @@ class DatabaseManager:
 
 
     def load_users(self):
+        """Загружает список пользователей."""
         return self._load_json(self.users_file, default=[])
 
     def save_users(self, users):
+        """Сохраняет список пользователей."""
         self._save_json(self.users_file, users)
 
 
     def load_portfolios(self):
+        """Загружает список портфелей."""
         return self._load_json(self.portfolios_file, default=[])
 
     def save_portfolios(self, portfolios):
+        """Сохраняет список портфелей."""
         self._save_json(self.portfolios_file, portfolios)
 
 
     def load_rates(self):
+        """Загружает курсы валют."""
         return self._load_json(self.rates_file, default={})
 
     def save_rates(self, rates):
+        """Сохраняет курсы."""
         self._save_json(self.rates_file, rates)
 
     def get_rate_rates(self, a: str, b: str):
-        """
-        Возвращает курс валюты a→b для формата:
-        """
+        """Возвращает курс валюты a→b для формата:"""
         a = a.upper()
         b = b.upper()
+        if a == b:
+            return 1.0
+
         rates = self.load_rates()
 
         pairs = rates.get("pairs", {})
@@ -70,6 +79,7 @@ class DatabaseManager:
         return entry.get("rate")
 
     def _load_json(self, path: Path, default):
+        """Внутренний метод для загрузки JSON файла."""
         if not path.exists():
             return default
         try:
@@ -79,6 +89,7 @@ class DatabaseManager:
             return default
 
     def _save_json(self, path: Path, data):
+        """Внутренний метод для сохранения JSON файла."""
         with open(path, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=4, ensure_ascii=False)
 

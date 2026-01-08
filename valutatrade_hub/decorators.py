@@ -12,7 +12,6 @@ def log_action(action_type, verbose=False):
     def decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
-            # Поля по умолчанию для extra, чтобы Formatter не падал
             default_extra = {
                 "action": action_type,
                 "username": "unknown",
@@ -24,18 +23,15 @@ def log_action(action_type, verbose=False):
             }
 
             try:
-                # Выполняем функцию и получаем словарь с данными
                 result = func(*args, **kwargs)
-
-                # Извлекаем значения
+                
                 user = result.get("user")
                 username = getattr(user, "username", "unknown") if user else "unknown"
                 currency = result.get("currency")
                 amount = result.get("amount")
                 rate = result.get("rate")
                 base = result.get("base", "USD")
-
-                # Формируем сообщение verbose, если нужно
+                
                 verbose_msg = ""
                 if verbose:
                     wallet_before = result.get("wallet_before")
@@ -45,8 +41,7 @@ def log_action(action_type, verbose=False):
                             wallet_before,
                             wallet_after
                         )
-
-                # Формируем extra для Formatter
+                
                 log_extra = {
                     **default_extra,
                     "username": username,
@@ -56,8 +51,7 @@ def log_action(action_type, verbose=False):
                     "base": base,
                     "result": "OK"
                 }
-
-                # Одна запись логирования, включая verbose
+                
                 logger.info(verbose_msg, extra=log_extra)
 
                 return result

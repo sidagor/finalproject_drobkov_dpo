@@ -53,8 +53,7 @@ class RatesStorage:
                  history_path: Optional[str] = None):
         self.rates_path = Path(rates_path or config.RATES_FILE_PATH)
         self.history_path = Path(history_path or config.HISTORY_FILE_PATH)
-
-        # Создаём папки, если их нет
+        
         self.rates_path.parent.mkdir(parents=True, exist_ok=True)
         self.history_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -78,10 +77,7 @@ class RatesStorage:
             d.astimezone(timezone.utc).replace(microsecond=0)
             .isoformat().replace("+00:00", "Z")
         )    
-
-    # --------------------
-    # Текущие курсы (rates.json)
-    # --------------------
+    
     def save_current_rates(self, combined_rates: Dict[str, Dict]) -> None:
         now = self._to_iso_z()
         pairs = {}
@@ -109,12 +105,8 @@ class RatesStorage:
                 return json.load(f)
         except Exception:
             return {}
-
-    # --------------------
-    # История курсов (exchange_rates.json)
-    # --------------------
+   
     def append_history_records(self, records: List[Dict]) -> None:
-        # Загружаем старые записи
         history = []
         if self.history_path.exists():
             try:
@@ -122,11 +114,9 @@ class RatesStorage:
                     history = json.load(f)
             except Exception:
                 history = []
-
-        # Создаём множество существующих id
+        
         existing_ids = {r["id"] for r in history if "id" in r}
-
-        # Фильтруем новые записи
+        
         new_records = [r for r in records if r.get("id") not in existing_ids]
 
         if not new_records:

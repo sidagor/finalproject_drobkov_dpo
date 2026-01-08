@@ -38,8 +38,7 @@ class RatesUpdater:
             try:
                 data = client.fetch_rates()
                 logger.info(f"Fetching from {client_short}... OK ({len(data)} rates)")
-
-                # Объединяем курсы и формируем историю
+                
                 for pair_key, payload in data.items():
                     combined_rates[pair_key] = payload
                     from_cur, to_cur = pair_key.split("_")
@@ -61,8 +60,7 @@ class RatesUpdater:
         if not combined_rates:
             logger.error("No rates fetched. Update aborted.")
             return {}, ""
-
-        # Сохраняем в файлы
+        
         logger.info(f"Writing {len(combined_rates)} rates to {self.storage.rates_path}")
         self.storage.save_current_rates(combined_rates)
         self.storage.append_history_records(history_records)

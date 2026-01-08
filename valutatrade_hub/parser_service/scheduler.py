@@ -19,8 +19,7 @@ class Scheduler:
     def __init__(self, interval: int = None):
         self.interval = interval or config.UPDATE_INTERVAL_SECONDS
         self.stop_event = Event()
-
-        # Инициализация зависимостей
+        
         self.storage = RatesStorage(config.RATES_FILE_PATH)
         self.clients = [
             CoinGeckoClient(),
@@ -65,7 +64,6 @@ def run_scheduler():
     scheduler.start()
 
 
-if __name__ == "__main__":
-    # Запуск планировщика из командной строки
+if __name__ == "__main__":    
     logging.basicConfig(level=logging.INFO)
     run_scheduler()

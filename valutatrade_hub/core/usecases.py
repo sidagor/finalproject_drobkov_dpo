@@ -125,6 +125,7 @@ def show_portfolio(args):
 
 @log_action("BUY", verbose=True)
 def buy(args):
+    """Покупка валюты для текущего пользователя."""
     user = SESSION.get("current_user")
     if not user:
         raise ValueError("Сначала выполните login")
@@ -187,6 +188,7 @@ def buy(args):
 
 @log_action("SELL", verbose=True)
 def sell(args):
+    """Продажа валюты для текущего пользователя"""
     user = SESSION.get("current_user")
     if not user:
         raise ValueError("Сначала выполните login")
@@ -207,7 +209,7 @@ def sell(args):
 
     currency = currency.upper()
     get_currency(currency)
-    
+           
     portfolios = DB.load_portfolios()
     portfolio_data = next((p for p in portfolios if p["user_id"] == user.user_id), None)
     if not portfolio_data:
@@ -223,7 +225,7 @@ def sell(args):
         )
 
     before_balance = wallets[currency]["balance"]
-    wallets[currency]["balance"] += amount
+    wallets[currency]["balance"] -= amount
     after_balance = wallets[currency]["balance"]
 
 
@@ -255,6 +257,7 @@ def sell(args):
     }
 
 def get_rate(from_code: str, to_code: str):
+    """Получение курса валют"""
     from_code = from_code.upper()
     to_code = to_code.upper()
 
@@ -301,6 +304,7 @@ def get_rate(from_code: str, to_code: str):
     return {"rate": rate_value, "updated_at": updated_at_str}
 
 def update_rates(source: str = None):
+    """Обновление курса валют из внешних источников"""
     storage = RatesStorage()
     clients = []
 
@@ -332,6 +336,7 @@ def update_rates(source: str = None):
 
 
 def show_rates(currency: str = None, top: int = None, base: str = "USD"):
+    """Отображение актуальных курсов валют"""
     storage = RatesStorage()
     try:
         cache = storage.load_current_rates()

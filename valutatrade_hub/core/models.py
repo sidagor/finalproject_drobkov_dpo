@@ -5,6 +5,7 @@ from datetime import datetime
 
 
 class User:
+    """Класс пользователя системы с безопасным хранением пароля."""
     def __init__(self, user_id: int, username: str, hashed_password: str,
                  salt: str, registration_date: datetime):
         self._user_id = user_id
@@ -23,28 +24,34 @@ class User:
   
     @property
     def user_id(self):
+        """Возвращает защищенный идентификатор пользователя."""
         return self._user_id
 
     @property
     def username(self):
+        """Возвращает имя пользователя."""
         return self._username
 
     @username.setter
     def username(self, value: str):
+        """Устанавливает имя пользователя."""
         if not value or not value.strip():
             raise ValueError("Имя пользователя не может быть пустым")
         self._username = value
 
     @property
     def hashed_password(self):
+        """Возвращает хэшированный пароль."""
         return self._hashed_password
 
     @property
     def salt(self):
+        """Возвращает соль пароля."""
         return self._salt
 
     @property
     def registration_date(self):
+        """Возвращает дату регистрации."""
         return self._registration_date
 
    
@@ -78,6 +85,7 @@ class User:
 
 
 class Wallet:
+    """Класс, представляющий кошелёк для хранения баланса."""
     def __init__(self, currency_code: str, balance: float = 0.0):
         self.currency_code = currency_code
         self.balance = balance
@@ -85,11 +93,13 @@ class Wallet:
 
     @property
     def balance(self):
+        """Возвращает текущий баланс кошелька."""
         return self._balance
 
 
     @balance.setter
     def balance(self, value: float):
+        """Устанавливает баланс кошелька с валидацией.."""
         if not isinstance(value, (int, float)):
             raise TypeError("Баланс должен быть числом")
         if value < 0:
@@ -98,6 +108,7 @@ class Wallet:
 
 
     def deposit(self, amount: float):
+        """Пополняет баланс кошелька."""
         if not isinstance(amount, (int, float)):
             raise TypeError("Сумма должна быть числом")
         if amount <= 0:
@@ -106,6 +117,7 @@ class Wallet:
 
 
     def withdraw(self, amount: float):
+        """Снимает средства с кошелька."""
         if not isinstance(amount, (int, float)):
             raise TypeError("Сумма должна быть числом")
         if amount <= 0:
@@ -116,6 +128,7 @@ class Wallet:
 
 
     def get_balance_info(self) -> dict:
+        """Возвращает информацию о балансе кошелька."""
         return {
             "currency_code": self.currency_code,
             "balance": self._balance
@@ -123,6 +136,7 @@ class Wallet:
 
 
 class Portfolio:
+    """Класс, представляющий портфель пользователя."""
     def __init__(self, user_id: int, wallets: dict[str, Wallet] | None = None):
         self._user_id = user_id
         self._wallets = wallets or {}
@@ -130,25 +144,30 @@ class Portfolio:
 
     @property
     def user_id(self):
+        """Возвращает идентификатор пользователя."""
         return self._user_id
 
 
     @property
     def wallets(self):
+        """Возвращает копию словаря кошельков."""
         return dict(self._wallets)
 
 
     def get_wallet(self, currency_code: str) -> Wallet | None:
+        """Возвращает кошелёк для указанной валюты."""
         return self._wallets.get(currency_code)
 
 
     def add_currency(self, currency_code: str):
+        """Добавляет новый кошелёк."""
         if currency_code in self._wallets:
             raise ValueError("Кошелёк для этой валюты уже существует")
         self._wallets[currency_code] = Wallet(currency_code)
 
 
     def get_total_value(self, base_currency: str = "USD") -> float:
+        """Рассчитывает общую стоимость портфеля"""
         exchange_rates = {
             "USD": 1.0,
             "EUR": 1.1,
