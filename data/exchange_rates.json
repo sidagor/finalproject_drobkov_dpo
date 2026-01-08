@@ -1090,5 +1090,89 @@
             "raw_id": "RUB",
             "etag": null
         }
+    },
+    {
+        "id": "BTC_USD_2026-01-08T15:05:02.150234Z",
+        "from_currency": "BTC",
+        "to_currency": "USD",
+        "rate": 89758,
+        "timestamp": "2026-01-08T15:05:02.150256Z",
+        "source": "CoinGecko",
+        "meta": {
+            "raw_id": "bitcoin",
+            "request_ms": 442,
+            "status_code": 200,
+            "etag": "W/\"a98d763083fc31ea75b1b1f0333e8910\""
+        }
+    },
+    {
+        "id": "ETH_USD_2026-01-08T15:05:02.150268Z",
+        "from_currency": "ETH",
+        "to_currency": "USD",
+        "rate": 3065.48,
+        "timestamp": "2026-01-08T15:05:02.150273Z",
+        "source": "CoinGecko",
+        "meta": {
+            "raw_id": "ethereum",
+            "request_ms": 442,
+            "status_code": 200,
+            "etag": "W/\"a98d763083fc31ea75b1b1f0333e8910\""
+        }
+    },
+    {
+        "id": "SOL_USD_2026-01-08T15:05:02.150278Z",
+        "from_currency": "SOL",
+        "to_currency": "USD",
+        "rate": 133.73,
+        "timestamp": "2026-01-08T15:05:02.150281Z",
+        "source": "CoinGecko",
+        "meta": {
+            "raw_id": "solana",
+            "request_ms": 442,
+            "status_code": 200,
+            "etag": "W/\"a98d763083fc31ea75b1b1f0333e8910\""
+        }
+    },
+    {
+        "id": "EUR_USD_2026-01-08T15:05:02.520181Z",
+        "from_currency": "EUR",
+        "to_currency": "USD",
+        "rate": 0.8559,
+        "timestamp": "2026-01-08T15:05:02.520192Z",
+        "source": "ExchangeRate-API",
+        "meta": {
+            "request_ms": 368,
+            "status_code": 200,
+            "raw_id": "EUR",
+            "etag": null
+        }
+    },
+    {
+        "id": "GBP_USD_2026-01-08T15:05:02.520198Z",
+        "from_currency": "GBP",
+        "to_currency": "USD",
+        "rate": 0.7422,
+        "timestamp": "2026-01-08T15:05:02.520201Z",
+        "source": "ExchangeRate-API",
+        "meta": {
+            "request_ms": 368,
+            "status_code": 200,
+            "raw_id": "GBP",
+            "etag": null
+        }
+    },
+    {
+        "id": "RUB_USD_2026-01-08T15:05:02.520205Z",
+        "from_currency": "RUB",
+        "to_currency": "USD",
+        "rate": 80.5501,
+        "timestamp": "2026-01-08T15:05:02.520208Z",
+        "source": "ExchangeRate-API",
+        "meta": {
+            "request_ms": 368,
+            "status_code": 200,
+            "raw_id": "RUB",
+            "etag": null
+        }
     }
 ]

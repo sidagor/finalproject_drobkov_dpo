@@ -49,3 +49,12 @@ ERROR 2026-01-08T16:16:23 SELL user='unknown' currency='None' amount=None rate=N
 ERROR 2026-01-08T16:22:12 SELL user='unknown' currency='None' amount=None rate=None base='USD' result=ERROR
 INFO 2026-01-08T16:37:31 SELL user='alice' currency='USD' amount=100.0000 rate=1.00 base='USD' result=OK
 INFO 2026-01-08T16:41:48 SELL user='alice' currency='USD' amount=100.0000 rate=1.00 base='USD' result=OK
+INFO 2026-01-08T17:55:13 BUY user='alice' currency='BTC' amount=0.0500 rate=89901.00 base='USD' result=OK
+INFO 2026-01-08T17:55:23 SELL user='alice' currency='USD' amount=100.0000 rate=1.00 base='USD' result=OK
+ERROR 2026-01-08T18:11:28 BUY user='unknown' currency='None' amount=None rate=None base='USD' result=ERROR
+ERROR 2026-01-08T18:13:37 BUY user='unknown' currency='None' amount=None rate=None base='USD' result=ERROR
+ERROR 2026-01-08T18:13:56 BUY user='unknown' currency='None' amount=None rate=None base='USD' result=ERROR
+ERROR 2026-01-08T18:14:36 BUY user='unknown' currency='None' amount=None rate=None base='USD' result=ERROR
+ERROR 2026-01-08T18:15:30 BUY user='unknown' currency='None' amount=None rate=None base='USD' result=ERROR
+ERROR 2026-01-08T18:17:02 BUY user='unknown' currency='None' amount=None rate=None base='USD' result=ERROR
+ERROR 2026-01-08T18:17:10 BUY user='unknown' currency='None' amount=None rate=None base='USD' result=ERROR

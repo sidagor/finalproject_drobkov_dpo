@@ -12,5 +12,12 @@
         "hashed_password": "d0780fe9af2d88a636683c4f73c97c1078319fbafb25ff38e03d722dd0d45e6b",
         "salt": "oRH4$d#z",
         "registration_date": "2026-01-08T13:13:12.324507"
+    },
+    {
+        "user_id": 3,
+        "username": "alex",
+        "hashed_password": "f1ea3b906aa1b6cab1c7fd89421eb100dc321357683f01b09d7672b51f686cc3",
+        "salt": "@ZS5zG77",
+        "registration_date": "2026-01-08T14:54:34.425867"
     }
 ]
